@@ -33,6 +33,31 @@ func NewClient(name string, email string) (*Client, error) {
 	return client, nil
 }
 
+func (c *Client) Update(name string, email string) (error) {
+	temp := struct {
+		name  string
+		email string
+	}{
+		name:  c.Name,
+		email: c.Email,
+	}
+
+	c.Name = name
+	c.Email = email
+	c.UpdatedAt = time.Now()
+
+	err := c.Validate()
+
+	if err != nil {
+		c.Name = temp.name
+		c.Email = temp.email
+		
+		return err
+	}
+
+	return nil
+}
+
 func (c *Client) Validate() error {
 	if c.Name == "" {
 		return errors.New("name is required")
