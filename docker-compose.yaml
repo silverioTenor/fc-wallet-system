@@ -1,0 +1,9 @@
+version: '3'
+services:
+  core:
+    build: './ms-wallet-core'
+    container_name: 'wallet-core'
+    ports:
+      - '9000:9000'
+    volumes:
+      - './ms-wallet-core:/app'
