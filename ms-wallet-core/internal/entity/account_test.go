@@ -39,7 +39,7 @@ func TestCreditAccountWithInvalidAmount(t *testing.T) {
 
 	err := account.Credit(-100)
 
-	assert.Error(t, err, "amount must be a positive value")
+	assert.Error(t, err, "amount must be greater than zero")
 }
 
 func TestDebitAccount(t *testing.T) {
@@ -59,5 +59,5 @@ func TestDebitAccountWithInvalidAmount(t *testing.T) {
 
 	err := account.Debit(-100)
 
-	assert.Error(t, err, "amount must be a positive value")
+	assert.Error(t, err, "amount must be greater than zero")
 }

@@ -33,7 +33,7 @@ func NewAccount(client *Client) (*Account, error) {
 
 func (a *Account) Credit(amount float64) error {
 	if amount <= 0 {
-		return errors.New("amount must be a positive value")
+		return errors.New("amount must be greater than zero")
 	}
 
 	a.Balance += amount
@@ -44,7 +44,7 @@ func (a *Account) Credit(amount float64) error {
 
 func (a *Account) Debit(amount float64) error {
 	if amount <= 0 {
-		return errors.New("amount must be a positive value")
+		return errors.New("amount must be greater than zero")
 	}
 
 	a.Balance -= amount
