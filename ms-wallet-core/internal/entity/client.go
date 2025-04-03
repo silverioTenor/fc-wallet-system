@@ -11,6 +11,7 @@ type Client struct {
 	ID        string
 	Name      string
 	Email     string
+	Accounts  []*Account
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
@@ -33,7 +34,7 @@ func NewClient(name string, email string) (*Client, error) {
 	return client, nil
 }
 
-func (c *Client) Update(name string, email string) (error) {
+func (c *Client) Update(name string, email string) error {
 	temp := struct {
 		name  string
 		email string
@@ -51,7 +52,7 @@ func (c *Client) Update(name string, email string) (error) {
 	if err != nil {
 		c.Name = temp.name
 		c.Email = temp.email
-		
+
 		return err
 	}
 
@@ -67,5 +68,14 @@ func (c *Client) Validate() error {
 		return errors.New("email is required")
 	}
 
+	return nil
+}
+
+func (c *Client) AddAccount(account *Account) error {
+	if account.Client.ID != c.ID {
+		return errors.New("account does not belong to client")
+	}
+
+	c.Accounts = append(c.Accounts, account)
 	return nil
 }
