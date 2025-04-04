@@ -21,10 +21,10 @@ type CreateClientOutputDTO struct {
 }
 
 type CreateClientUseCase struct {
-	ClientGateway gateway.ClientGateway
+	ClientGateway gateway.IClientGateway
 }
 
-func NewCreateClientUseCase(clientGateway gateway.ClientGateway) *CreateClientUseCase {
+func NewCreateClientUseCase(clientGateway gateway.IClientGateway) *CreateClientUseCase {
 	return &CreateClientUseCase{
 		ClientGateway: clientGateway,
 	}
