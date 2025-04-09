@@ -7,12 +7,12 @@ import (
 	"github.com/silverioTenor/fc-wallet-system/internal/gateway"
 )
 
-type CreateClientInputDTO struct {
+type InputCreateClientDTO struct {
 	Name  string
 	Email string
 }
 
-type CreateClientOutputDTO struct {
+type OutputCreateClientDTO struct {
 	ID        string
 	Name      string
 	Email     string
@@ -30,18 +30,20 @@ func NewCreateClientUseCase(clientGateway gateway.IClientGateway) *CreateClientU
 	}
 }
 
-func (uc *CreateClientUseCase) Execute(input CreateClientInputDTO) (*CreateClientOutputDTO, error) {
+func (usecase *CreateClientUseCase) Execute(
+	input InputCreateClientDTO,
+) (*OutputCreateClientDTO, error) {
 	client, err := entity.NewClient(input.Name, input.Email)
 	if err != nil {
 		return nil, err
 	}
 
-	err = uc.ClientGateway.Save(client)
+	err = usecase.ClientGateway.Save(client)
 	if err != nil {
 		return nil, err
 	}
 
-	return &CreateClientOutputDTO{
+	return &OutputCreateClientDTO{
 		ID:        client.ID,
 		Name:      client.Name,
 		Email:     client.Email,
